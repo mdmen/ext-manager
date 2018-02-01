@@ -1,2 +1,1 @@
-# ext-manager
-Google Chrome extension manager 
+This app allows you to manage your extensions.
