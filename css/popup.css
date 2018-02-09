@@ -1,1 +1,30 @@
 
+body {
+  margin: 0;
+}
+
+.ext-app {
+  width: 250px;
+  max-width: 100%;
+  font: 14px/1.15 BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  user-select: none;
+}
+
+.ext-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ext-list__item {
+  width: 100%;
+  padding: 3px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.ext-list__item--active {
+  color: lightgreen;
+}
