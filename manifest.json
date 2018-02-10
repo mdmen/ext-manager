@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Simple extension manager",
-  "description": "This app allows you to manage your extensions.",
+  "description": "This addon allows you to manage your extensions.",
   "version": "0.1",
 
   "icons": {

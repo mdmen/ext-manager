@@ -1,32 +1,48 @@
 
 ; (function () {
 
-  let app = null;
-  let extIds = [];
+  /**
+   * Get all extensions and then start callback
+   */
+  function getExtensions() {
+    chrome.management.getAll(renderExtensions);
+  }
 
-  function init() {
-    getExtensions();
+  /**
+   * Render the list of extensions
+   * @param {object} extensions - List of all available extensions
+   */
+  function renderExtensions(extensions) {
+    extensions = getFilteredExtensions(extensions) || [];
 
-    app = document.getElementById('ext-app');
-    
+    if (!extensions.length) {
+      showNote('You have no extensions yet');
+      return;
+    }
+
+    const app = document.getElementById('ext-app');
+
     app.addEventListener('click', toggleExtension);
     app.onmousedown = () => false;
+
+    app.appendChild(getExtensionsNodeList(extensions));
   }
 
-  function getExtensions() {
-    chrome.management.getAll(render);
+  /**
+   * Filter the extensions
+   * @param {array} extensions - List of all available extensions
+   * @returns {array} - Filtered array of extensions
+   */
+  function getFilteredExtensions(extensions) {
+    return extensions.filter((item) => item.type === 'extension');
   }
 
-  function render(extensions) {
-    extensions = extensions || [];
-    extensions = extensions.filter((item) => !item.isApp);
-
-    if (!extensions.length) return;
-
-    app.appendChild(buildList(extensions));
-  }
-
-  function buildList(extensions) {
+  /**
+   * Build the DOM Nodes
+   * @param {array} extensions - Filtered array of extensions
+   * @returns {object} - DOM Nodes
+   */
+  function getExtensionsNodeList(extensions) {
     let list = document.createElement('ul');
     list.className = 'ext-list';
 
@@ -37,20 +53,51 @@
       listItem.dataset.id = item.id;
       listItem.className = 'ext-list__item';
 
+      let icon = document.createElement('img');
+      icon.src = item.icons[0].url;
+      icon.className = 'ext-list__icon';
+
+      listItem.insertAdjacentElement('afterBegin', icon);
+
+      if (item.enabled) {
+        listItem.classList.add('ext-list__item--active');
+      }
+
       list.appendChild(listItem);
     });
 
     return list;
   }
 
+  /**
+   * Set the extension enable/disable
+   * @param {object} event - Mouse click event
+   */
   function toggleExtension(event) {
     const item = event.target;
 
     if (!item.closest('.ext-list__item')) return;
 
+    const id = item.dataset.id;
+    const isActive = item.classList.contains('ext-list__item--active');
+
+    chrome.management.setEnabled(id, !isActive);
+
     item.classList.toggle('ext-list__item--active');
   }
 
-  document.addEventListener('DOMContentLoaded', init);
+  /**
+   * Show the note
+   * @param {string} text - Message text
+   */
+  function showNote(text) {
+    let note = document.createElement('div');
+    note.className = 'ext-note';
+    note.innerHTML = text;
+
+    document.getElementById('ext-app').appendChild(note);
+  }
+
+  document.addEventListener('DOMContentLoaded', getExtensions);
 
 })();
