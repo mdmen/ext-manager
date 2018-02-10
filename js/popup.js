@@ -1,17 +1,10 @@
 
 ; (function () {
 
-  /**
-   * Get all extensions and then start callback
-   */
   function getExtensions() {
     chrome.management.getAll(renderExtensions);
   }
 
-  /**
-   * Render the list of extensions
-   * @param {object} extensions - List of all available extensions
-   */
   function renderExtensions(extensions) {
     extensions = getFilteredExtensions(extensions) || [];
 
@@ -28,20 +21,10 @@
     app.appendChild(getExtensionsNodeList(extensions));
   }
 
-  /**
-   * Filter the extensions
-   * @param {array} extensions - List of all available extensions
-   * @returns {array} - Filtered array of extensions
-   */
   function getFilteredExtensions(extensions) {
     return extensions.filter((item) => item.type === 'extension');
   }
 
-  /**
-   * Build the DOM Nodes
-   * @param {array} extensions - Filtered array of extensions
-   * @returns {object} - DOM Nodes
-   */
   function getExtensionsNodeList(extensions) {
     let list = document.createElement('ul');
     list.className = 'ext-list';
@@ -69,10 +52,6 @@
     return list;
   }
 
-  /**
-   * Set the extension enable/disable
-   * @param {object} event - Mouse click event
-   */
   function toggleExtension(event) {
     const item = event.target;
 
@@ -86,10 +65,6 @@
     item.classList.toggle('ext-list__item--active');
   }
 
-  /**
-   * Show the note
-   * @param {string} text - Message text
-   */
   function showNote(text) {
     let note = document.createElement('div');
     note.className = 'ext-note';
