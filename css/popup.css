@@ -9,6 +9,7 @@ body {
   padding: 3px;
   box-sizing: border-box;
   font: 14px/1.15 Helvetica, Arial, sans-serif;
+  clear: both;
 }
 
 .ext-list {
@@ -19,25 +20,35 @@ body {
 
 .ext-list__item {
   width: 100%;
-  padding: 3px;
+  padding: 4px 3px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
+  box-sizing: border-box;
+  color: #222;
 }
 
 .ext-list__item--active {
-  color: lightgreen;
+  color: #4F8A10;
 }
 
 .ext-list__icon {
   max-width: 16px;
   width: 100%;
   height: auto;
-  vertical-align: middle;
   border: 0;
+  float: left;
+  margin-right: 5px;
+  filter: grayscale(1);
+  transition: filter .3s;
+}
+
+.ext-list__item--active .ext-list__icon,
+.ext-list__item:hover .ext-list__icon {
+  filter: grayscale(0);
 }
 
 .ext-note {
-
+  padding: 10px;
 }
