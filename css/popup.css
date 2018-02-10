@@ -6,8 +6,9 @@ body {
 .ext-app {
   width: 250px;
   max-width: 100%;
-  font: 14px/1.15 BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  user-select: none;
+  padding: 3px;
+  box-sizing: border-box;
+  font: 14px/1.15 Helvetica, Arial, sans-serif;
 }
 
 .ext-list {
@@ -27,4 +28,16 @@ body {
 
 .ext-list__item--active {
   color: lightgreen;
+}
+
+.ext-list__icon {
+  max-width: 16px;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border: 0;
+}
+
+.ext-note {
+
 }
