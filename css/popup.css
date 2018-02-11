@@ -1,14 +1,14 @@
 
 body {
   margin: 0;
+  font: 14px/1.15 Helvetica, Arial, sans-serif;
+  color: #222;
 }
 
 .ext-app {
-  width: 250px;
+  width: 210px;
   max-width: 100%;
-  padding: 3px;
   box-sizing: border-box;
-  font: 14px/1.15 Helvetica, Arial, sans-serif;
   clear: both;
 }
 
@@ -20,13 +20,12 @@ body {
 
 .ext-list__item {
   width: 100%;
-  padding: 4px 3px;
+  padding: 5px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
   box-sizing: border-box;
-  color: #222;
 }
 
 .ext-list__item--active {
@@ -41,7 +40,10 @@ body {
   float: left;
   margin-right: 5px;
   filter: grayscale(1);
-  transition: filter .3s;
+}
+
+.ext-list__item:hover {
+  background: rgba(0, 0, 0, .02);
 }
 
 .ext-list__item--active .ext-list__icon,

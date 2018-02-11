@@ -1,28 +1,54 @@
 
 ; (function () {
 
-  function getExtensions() {
-    chrome.management.getAll(renderExtensions);
+  let extensions = [];
+  let selfExtension = {};
+
+  function init() {
+    Promise.all([getExtensions(), getSelf()])
+      .catch(showNote)
+      .then(filterExtensions)
+      .then(renderExtensions)
+      .catch(() => {
+        showNote('Sorry, an error occurred');
+      });
   }
 
-  function renderExtensions(extensions) {
-    extensions = getFilteredExtensions(extensions) || [];
+  function getExtensions() {
+    return new Promise((resolve, reject) => {
+      chrome.management.getAll(result => {
+        if (result.length - 1 > 0) {
+          extensions = result;
+          resolve();
+        } else {
+          reject('You have no extensions yet');
+        }
+      });
+    });
+  }
 
-    if (!extensions.length) {
-      showNote('You have no extensions yet');
-      return;
-    }
+  function getSelf() {
+    return new Promise(resolve => {
+      chrome.management.getSelf(response => {
+        selfExtension = response;
+        resolve();
+      });
+    });
+  }
 
+  function filterExtensions() {
+    extensions = extensions.filter(item => {
+      return item.type === 'extension' && item.id !== selfExtension.id
+    });
+  }
+
+  function renderExtensions() {
     const app = document.getElementById('ext-app');
 
     app.addEventListener('click', toggleExtension);
     app.onmousedown = () => false;
 
     app.appendChild(getExtensionsNodeList(extensions));
-  }
-
-  function getFilteredExtensions(extensions) {
-    return extensions.filter((item) => item.type === 'extension');
   }
 
   function getExtensionsNodeList(extensions) {
@@ -32,7 +58,7 @@
     extensions.forEach((item) => {
       let listItem = document.createElement('li');
 
-      listItem.textContent = item.name;
+      listItem.textContent = item.shortName || item.name;
       listItem.dataset.id = item.id;
       listItem.className = 'ext-list__item';
 
@@ -73,6 +99,6 @@
     document.getElementById('ext-app').appendChild(note);
   }
 
-  document.addEventListener('DOMContentLoaded', getExtensions);
+  document.addEventListener('DOMContentLoaded', init);
 
 })();
