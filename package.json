@@ -1,0 +1,33 @@
+{
+  "name": "ext-manager",
+  "version": "0.1.0",
+  "description": "Just allows you to on/off your extensions.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "^5.0.0"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdmen/ext-manager.git"
+  },
+  "author": "Dmitry Menov",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/mdmen/ext-manager/issues"
+  },
+  "homepage": "https://github.com/mdmen/ext-manager#readme"
+}

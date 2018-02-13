@@ -7,13 +7,13 @@
   "version": "0.1",
 
   "icons": {
-    "16": "img/icon-16x16.png",
-    "48": "img/icon-48x48.png",
-    "128": "img/icon-48x48.png"
+    "16": "dist/img/icon-16x16.png",
+    "48": "dist/img/icon-48x48.png",
+    "128": "dist/img/icon-48x48.png"
   },
 
   "browser_action": {
-    "default_icon": "img/icon-32x32.png",
+    "default_icon": "dist/img/icon-32x32.png",
     "default_title": "Extension manager",
     "default_popup": "popup.html"
   },
