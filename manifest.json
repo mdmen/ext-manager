@@ -20,5 +20,6 @@
 
   "permissions": [
     "management"
-  ]
+  ],
+  "minimum_chrome_version": "32"
 }
