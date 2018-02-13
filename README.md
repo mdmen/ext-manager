@@ -1,1 +1,1 @@
-This app allows you to manage your extensions.
+Just allows you to on/off your extensions. Only native js/css/html, without third-party libs.

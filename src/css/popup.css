@@ -46,8 +46,7 @@ body {
   background: rgba(0, 0, 0, .02);
 }
 
-.ext-list__item--active .ext-list__icon,
-.ext-list__item:hover .ext-list__icon {
+.ext-list__item--active .ext-list__icon {
   filter: grayscale(0);
 }
 
