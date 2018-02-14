@@ -18,7 +18,8 @@
     "gulp-watch": "^5.0.0"
   },
   "scripts": {
-    "build": "./node_modules/.bin/gulp build"
+    "build": "./node_modules/.bin/gulp build",
+    "final": "./node_modules/.bin/gulp final"
   },
   "repository": {
     "type": "git",
