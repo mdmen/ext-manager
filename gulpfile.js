@@ -30,7 +30,7 @@ const path = {
 };
 
 gulp
-  .task('js:build', function () {
+  .task('js:build', () => {
     return gulp.src(path.src.js)
       .pipe(plumber())
       .pipe(babel({
@@ -43,7 +43,7 @@ gulp
       .pipe(plumber.stop())
       .pipe(gulp.dest(path.dist.js));
   })
-  .task('css:build', function () {
+  .task('css:build', () => {
     return gulp.src(path.src.css)
       .pipe(plumber())
       .pipe(autoprefixer({
@@ -57,7 +57,7 @@ gulp
       .pipe(plumber.stop())
       .pipe(gulp.dest(path.dist.css));
   })
-  .task('img:build', function () {
+  .task('img:build', () => {
     return gulp.src(path.src.img)
       .pipe(plumber())
       .pipe(imagemin({
@@ -71,18 +71,18 @@ gulp
     'css:build',
     'img:build',
   ])
-  .task('watch', function () {
-    watch([path.watch.img], function (e, cb) {
+  .task('watch', () => {
+    watch([path.watch.img], () => {
       gulp.start('img:build');
     });
-    watch([path.watch.css], function (e, cb) {
+    watch([path.watch.css], () => {
       gulp.start('css:build');
     });
-    watch([path.watch.js], function (e, cb) {
+    watch([path.watch.js], () => {
       gulp.start('js:build');
     });
   })
-  .task('final', function () {
+  .task('final', () => {
     gulp.src(['./popup.html', './manifest.json'])
       .pipe(gulp.dest(path.final));
 
