@@ -89,7 +89,7 @@ gulp
     gulp.src(['./dist/**/*.*', '!**/screenshot.png'])
       .pipe(gulp.dest(path.final + '/dist'));
 
-    gulp.src('./final')
+    gulp.src('./final/**/*.*')
       .pipe(zip('final.zip'))
       .pipe(gulp.dest('./'));
   });
