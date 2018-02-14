@@ -8,6 +8,7 @@ const rename = require('gulp-rename');
 const autoprefixer = require('gulp-autoprefixer');
 const csso = require('gulp-csso');
 const babel = require('gulp-babel');
+const zip = require('gulp-zip');
 
 const path = {
   dist: {
@@ -87,4 +88,8 @@ gulp
 
     gulp.src(['./dist/**/*.*', '!**/screenshot.png'])
       .pipe(gulp.dest(path.final + '/dist'));
+
+    gulp.src('./final')
+      .pipe(zip('final.zip'))
+      .pipe(gulp.dest('./'));
   });
