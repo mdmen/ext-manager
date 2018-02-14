@@ -24,7 +24,8 @@ const path = {
     js: 'src/js/**/*.*',
     css: 'src/css/**/*.*',
     img: 'src/img/**/*.*'
-  }
+  },
+  final: 'final'
 };
 
 gulp
@@ -79,4 +80,11 @@ gulp
     watch([path.watch.js], function (e, cb) {
       gulp.start('js:build');
     });
+  })
+  .task('final', function () {
+    gulp.src(['./popup.html', './manifest.json'])
+      .pipe(gulp.dest(path.final));
+
+    gulp.src(['./dist/**/*.*', '!**/screenshot.png'])
+      .pipe(gulp.dest(path.final + '/dist'));
   });
