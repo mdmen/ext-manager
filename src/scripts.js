@@ -77,11 +77,11 @@
     root.onmousedown = () => false;
     root.addEventListener("click", toggleExtension);
 
-    const extensionsList = buildExtensionsNodeList();
+    const extensionsList = buildExtensionsList();
     root.appendChild(extensionsList);
   }
 
-  function buildExtensionsNodeList() {
+  function buildExtensionsList() {
     const list = document.createElement("ul");
     list.className = listClass;
 
