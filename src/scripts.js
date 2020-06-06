@@ -11,7 +11,7 @@
 
   async function init() {
     try {
-      await Promise.all([setExtensions(), setSelfExtension()]);
+      await Promise.all([loadExtensions(), loadSelfExtension()]);
       await filterExtensions();
       await sortByAlhabet();
       render();
@@ -20,7 +20,7 @@
     }
   }
 
-  async function setExtensions() {
+  async function loadExtensions() {
     await new Promise((resolve, reject) => {
       chrome.management.getAll((result) => {
         if (result.length - 1 > 0) {
@@ -33,7 +33,7 @@
     });
   }
 
-  async function setSelfExtension() {
+  async function loadSelfExtension() {
     await new Promise((resolve) => {
       chrome.management.getSelf((response) => {
         selfExtension = response;
