@@ -40,8 +40,16 @@ body {
   cursor: pointer;
 }
 
+.extensions__item:hover {
+  background: var(--active-bg-color);
+}
+
 .extensions__item--active {
   color: var(--text-active-color);
+}
+
+.extensions__item--active .extensions__icon {
+  filter: grayscale(0);
 }
 
 .extensions__icon {
@@ -57,14 +65,6 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-}
-
-.extensions__item:hover {
-  background: var(--active-bg-color);
-}
-
-.extensions__item--active .extensions__icon {
-  filter: grayscale(0);
 }
 
 .note {
