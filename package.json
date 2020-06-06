@@ -1,35 +1,22 @@
 {
   "name": "ext-manager",
-  "version": "0.1.0",
-  "description": "Just allows you to on/off your extensions.",
-  "main": "index.js",
-  "dependencies": {},
+  "version": "0.0.2",
+  "private": true,
+  "description": "Just allows you to turn on/off your extensions",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.1.0",
-    "gulp-babel": "^7.0.1",
-    "gulp-csso": "^3.0.1",
-    "gulp-imagemin": "^4.1.0",
-    "gulp-plumber": "^1.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^3.0.0",
-    "gulp-watch": "^5.0.0",
-    "gulp-zip": "^4.1.0"
+    "copyfiles": "2.3.0",
+    "imagemin-cli": "6.0.0",
+    "rimraf": "3.0.2"
   },
   "scripts": {
-    "build": "./node_modules/.bin/gulp build",
-    "final": "./node_modules/.bin/gulp final"
+    "build": "npm run prepare && npm run img:build",
+    "prepare": "rimraf dist && copyfiles -u 1 src/* dist",
+    "img:build": "imagemin src/images -o dist/images"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mdmen/ext-manager.git"
   },
   "author": "Dmitry Menov",
-  "license": "",
-  "bugs": {
-    "url": "https://github.com/mdmen/ext-manager/issues"
-  },
-  "homepage": "https://github.com/mdmen/ext-manager#readme"
+  "homepage": "https://github.com/mdmen/ext-manager"
 }
