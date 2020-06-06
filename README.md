@@ -1,1 +1,1 @@
-Just allows to turn on/off your extensions. Only native js/css/html, without third-party libs.
+Just allows to turn on/off your extensions. Native es6 without third-party libs.
