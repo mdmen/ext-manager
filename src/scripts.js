@@ -12,8 +12,7 @@
   async function init() {
     try {
       await Promise.all([loadExtensions(), loadSelfExtension()]);
-      await filterExtensions();
-      await sortByAlhabet();
+      prepareExtensions();
       render();
     } catch (e) {
       showError(e);
@@ -22,9 +21,9 @@
 
   async function loadExtensions() {
     await new Promise((resolve, reject) => {
-      chrome.management.getAll((result) => {
-        if (result.length - 1 > 0) {
-          extensions = result;
+      chrome.management.getAll((response) => {
+        if (response.length - 1 > 0) {
+          extensions = response;
           resolve();
         } else {
           reject("You have no extensions yet");
@@ -42,33 +41,33 @@
     });
   }
 
-  async function filterExtensions() {
-    await new Promise((resolve) => {
-      extensions = extensions.filter(
-        (item) =>
-          item.type === "extension" &&
-          item.id !== selfExtension.id &&
-          (item.mayEnable || item.mayDisable)
-      );
-      resolve();
-    });
+  function prepareExtensions() {
+    const filtered = filterExtensions(extensions, selfExtension);
+    const sortedByAlphabet = sortExtensionsByAlhabet(filtered);
+    extensions = sortedByAlphabet;
   }
 
-  async function sortByAlhabet() {
-    await new Promise((resolve) => {
-      extensions = extensions.sort((a, b) => {
-        const aName = a.shortName || a.name;
-        const bName = b.shortName || b.name;
-        switch (true) {
-          case aName < bName:
-            return -1;
-          case aName > bName:
-            return 1;
-          default:
-            return 0;
-        }
-      });
-      resolve();
+  function filterExtensions(list, self) {
+    return list.filter(
+      (item) =>
+        item.type === "extension" &&
+        item.id !== self.id &&
+        (item.mayEnable || item.mayDisable)
+    );
+  }
+
+  function sortExtensionsByAlhabet(list) {
+    return [...list].sort((a, b) => {
+      const aName = a.shortName || a.name;
+      const bName = b.shortName || b.name;
+      switch (true) {
+        case aName < bName:
+          return -1;
+        case aName > bName:
+          return 1;
+        default:
+          return 0;
+      }
     });
   }
 
@@ -142,5 +141,5 @@
     root.appendChild(note);
   }
 
-  document.addEventListener("DOMContentLoaded", init());
+  document.addEventListener("DOMContentLoaded", init);
 })();
