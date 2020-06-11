@@ -1,8 +1,5 @@
 {
-  "name": "ext-manager",
-  "version": "0.0.2",
   "private": true,
-  "description": "Just allows you to turn on/off your extensions",
   "devDependencies": {
     "copyfiles": "2.3.0",
     "imagemin-cli": "6.0.0",
@@ -12,11 +9,5 @@
     "build": "npm run prepare && npm run img:build",
     "prepare": "rimraf dist && copyfiles -u 1 src/* dist",
     "img:build": "imagemin src/images -o dist/images"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mdmen/ext-manager.git"
-  },
-  "author": "Dmitry Menov",
-  "homepage": "https://github.com/mdmen/ext-manager"
+  }
 }
