@@ -1,13 +1,18 @@
 (() => {
-  let extensions = [];
-  let selfExtension = null;
+  // global state
+  const state = {
+    extensions: [],
+    selfExtension: null
+  };
 
   // layout classes
-  const listClass = "extensions";
-  const listItemClass = "extensions__item";
-  const listItemActiveClass = "extensions__item--active";
-  const listIconClass = "extensions__icon";
-  const listNameClass = "extensions__name";
+  const classes = {
+    list: 'extensions',
+    listItem: 'extensions__item',
+    listItemActive: 'extensions__item--active',
+    listItemIcon: 'extensions__icon',
+    listItemName: 'extensions__name',
+  };
 
   async function init() {
     try {
@@ -23,7 +28,7 @@
     await new Promise((resolve, reject) => {
       chrome.management.getAll((response) => {
         if (response.length - 1 > 0) {
-          extensions = response;
+          state.extensions = response;
           resolve();
         } else {
           reject("You have no extensions yet");
@@ -35,23 +40,23 @@
   async function loadSelfExtension() {
     await new Promise((resolve) => {
       chrome.management.getSelf((response) => {
-        selfExtension = response;
+        state.selfExtension = response;
         resolve();
       });
     });
   }
 
   function prepareExtensions() {
-    const filtered = filterExtensions(extensions, selfExtension);
-    const sortedByAlphabet = sortExtensionsByAlhabet(filtered);
-    extensions = sortedByAlphabet;
+    const filtered = filterExtensions(state);
+    const sortedByApphabet = sortExtensionsByAlhabet(filtered);
+    state.extensions = sortedByApphabet;
   }
 
-  function filterExtensions(list, self) {
-    return list.filter(
+  function filterExtensions(globalState) {
+    return globalState.extensions.filter(
       (item) =>
         item.type === "extension" &&
-        item.id !== self.id &&
+        item.id !== globalState.selfExtension.id &&
         (item.mayEnable || item.mayDisable)
     );
   }
@@ -76,32 +81,32 @@
     root.onmousedown = () => false;
     root.addEventListener("click", toggleExtension);
 
-    const extensionsList = buildExtensionsList();
+    const extensionsList = buildExtensionsList(state);
     root.appendChild(extensionsList);
   }
 
-  function buildExtensionsList() {
+  function buildExtensionsList(globalState) {
     const list = document.createElement("ul");
-    list.className = listClass;
+    list.className = classes.list;
 
-    extensions.forEach((item) => {
+    globalState.extensions.forEach((item) => {
       let extension = document.createElement("li");
 
       extension.dataset.id = item.id;
-      extension.className = listItemClass;
+      extension.className = classes.listItem;
 
       const icon = document.createElement("img");
       icon.src = item.icons[0].url;
-      icon.className = listIconClass;
+      icon.className = classes.listItemIcon;
       extension.appendChild(icon);
 
       const name = document.createElement("span");
       name.textContent = item.shortName || item.name;
-      name.className = listNameClass;
+      name.className = classes.listItemName;
       extension.appendChild(name);
 
       if (item.enabled) {
-        extension.classList.add(listItemActiveClass);
+        extension.classList.add(classes.listItemActive);
       }
 
       list.appendChild(extension);
@@ -111,15 +116,15 @@
   }
 
   function toggleExtension({ target }) {
-    const elem = target.closest(`.${listItemClass}`);
+    const elem = target.closest(`.${classes.listItem}`);
     if (!elem) return;
 
     const id = elem.dataset.id;
-    const isActive = elem.classList.contains(listItemActiveClass);
+    const isActive = elem.classList.contains(classes.listItemActive);
 
     chrome.management.setEnabled(id, !isActive);
 
-    elem.classList.toggle(listItemActiveClass);
+    elem.classList.toggle(classes.listItemActive);
   }
 
   function showError(error) {
