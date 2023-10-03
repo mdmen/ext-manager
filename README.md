@@ -1,4 +1,4 @@
-# Simple extensions manager for Google Chrome
+# Simple extension manager for Google Chrome
 
 Just allows to turn on/off your extensions. Vanilla JavaScript without third-party libs.
 
@@ -11,8 +11,8 @@ Just allows to turn on/off your extensions. Vanilla JavaScript without third-par
 
 ## Installation
 
-1. Clone the repository
-2. Open Google Chrome. Go to chrome://extensions/
+1. Clone the repository or download/unpack archive
+2. In Google Chrome go to chrome://extensions/
 3. Enable "Developer mode"
 4. Click "Load unpacked" (just pick up repo folder)
 5. Disable "Developer mode"
