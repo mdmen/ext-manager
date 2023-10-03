@@ -1,18 +1,18 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Simple extensions manager",
   "short_name": "Extensions manager",
   "description": "Just allows you to turn on/off your extensions",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "icons": {
     "16": "images/icon-16x16.png",
     "48": "images/icon-48x48.png",
     "128": "images/icon-48x48.png"
   },
-  "browser_action": {
+  "action": {
+    "default_popup": "index.html",
     "default_icon": "images/icon-32x32.png",
-    "default_title": "Extensions manager",
-    "default_popup": "index.html"
+    "default_title": "Extensions manager"
   },
   "permissions": [
     "management"
