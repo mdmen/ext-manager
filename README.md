@@ -11,7 +11,10 @@ Just allows to turn on/off your extensions. Vanilla JavaScript without third-par
 
 ## Installation
 
-1. Clone the repository or download/unpack archive
+1. Get shallow copy of the repository
+   ```sh
+   git clone --depth 1 https://github.com/mdmen/ext-manager.git
+   ```
 2. In Google Chrome go to chrome://extensions/
 3. Enable "Developer mode"
 4. Click "Load unpacked" (just pick up repo folder)
